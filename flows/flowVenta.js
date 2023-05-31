@@ -37,7 +37,7 @@ const {
 const db = getDatabase();
 
 function insertarMensaje(user, mensaje, fechita, timestampi) {
-  set(ref(db, "chats/" + user + "/" + timestampi), {
+  set(ref(db, "chats/" + user + "/" + timestampi+"I"), {
     mensaje: mensaje,
     fecha: fechita,
     origen: "bot",

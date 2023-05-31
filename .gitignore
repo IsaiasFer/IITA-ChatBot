@@ -1,5 +1,14 @@
+# Para que el .gitIgnore no me borre la edición de la libreria
+node_modules/*
+!node_modules/@bot-whatsapp
+node_modules/@bot-whatsapp/*
+!node_modules/@bot-whatsapp/bot
+node_modules/@bot-whatsapp/bot/*
+!node_modules/@bot-whatsapp/bot/lib
+node_modules/@bot-whatsapp/bot/lib/*
+!node_modules/@bot-whatsapp/bot/lib/bundle.bot.cjs
 
-node_modules
+
 # Logs
 logs
 *.log
@@ -41,7 +50,6 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
@@ -130,3 +138,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+!.gitignore

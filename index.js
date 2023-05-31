@@ -22,30 +22,40 @@ const db = getDatabase();
 
 function obtenerMensajes(){
     const dbRef=ref(db,"/")
-    const container=document.getElementById('hola')
+    let container=document.getElementById('hola')
 
     onValue(dbRef,(snapshot)=>{
         var respuesta=[]
+        let contenedor=document.createElement("div")
         snapshot.forEach(childSnapshots => {
             respuesta.push(childSnapshots.val())
         });
 
         respuesta=Object.entries(respuesta)
         var cliente=Object.entries(respuesta[0][1])
-
+        
         for (let i = 0; i <  cliente.length; i++) {
             var objetoMensaje=Object.values(cliente[i][1])
             var nombreDeCliente=cliente[i][0]
-            var mensajes=[]
-            container.append(`Los siguientes mensajes corresponden a ${nombreDeCliente}: \n`)
+            contenedor.append(`Los siguientes mensajes corresponden a ${nombreDeCliente}: \n`)
             for (let i = 0; i < objetoMensaje.length; i++) {
                 var mensaje=objetoMensaje[i].mensaje
-                mensajes.push(mensaje)
+                let p = document.createElement("p");
+                p.append(mensaje)
+                if (objetoMensaje[i].origen=="bot"){
+                    p.classList.add("botMsj")
+                }else{
+                    p.classList.add("clientMsj")
+                }
+                contenedor.append(p)
             }
-            let p = document.createElement("p");
-            p.append(mensajes)
-            container.append(p)
         }
+        if (container.firstElementChild){
+            container.replaceChild(contenedor,container.firstElementChild)
+        }else{
+            container.append(contenedor)
+        }
+        
     })
 }
 

@@ -1,0 +1,23 @@
+#hola{
+    background-color: lightblue;
+}
+
+#hola div{
+    padding: 1em;
+}
+
+.clientMsj,.botMsj{
+    background-color: antiquewhite;
+    border-radius: 5px;
+}
+
+.botMsj{
+    margin-left: 40%;
+    text-align: right;
+    padding: .5em 1em .5em .5em;
+}
+.clientMsj{
+    margin-right: 40%;
+    text-align: left;
+    padding: .5em .5em .5em 1em;
+}

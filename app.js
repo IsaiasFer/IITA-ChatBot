@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const {
   createBot,
   createProvider,
@@ -92,7 +94,7 @@ const main = async () => {
 
   const adapterProvider = createProvider(MetaProvider, {
     jwtToken:
-      "EABYCzV8MeAIBAOeU3hQRHpmC7ZAZAQHrtNd7ErGesKQHnHD0M7KZAFLq1H8565PuKszia8acSRm4ydjUieFeUvyr5gQ01FDcCdqWZALbO8cOeXIeS7DSzlZAU2tBr3P1JFFjudcNQ4BUgJlCd1X7Sy0JtPv5nZA5lOU9kP9gFhJCZA6NRLB19JVrINZCb5KulZB5TGzQoG1GrDxUK30SJsE6CfEDmnC1rGZBcZD",
+      process.env.META_KEY,
     numberId: 110066822076442,
     verifyToken: "HAPPY",
     version: "v16.0",
