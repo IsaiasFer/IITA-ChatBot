@@ -1,9 +1,27 @@
-#hola{
+body{
+    margin: 0;
+    padding: 0;
     background-color: lightblue;
 }
 
-#hola div{
+.revision{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    margin: 2em;
+}
+
+.textoDeChatGPT{
+    background-color: white;
+    width: 40%;
     padding: 1em;
+    border-radius: 5px;
+    color: gray;
+}
+#hola div{
+    padding: 1em 1em 0;
 }
 
 .clientMsj,.botMsj{
@@ -20,4 +38,9 @@
     margin-right: 40%;
     text-align: left;
     padding: .5em .5em .5em 1em;
+}
+
+input{
+    text-align: center;
+    margin:0 0 1em;
 }

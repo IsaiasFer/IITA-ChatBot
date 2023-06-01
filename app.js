@@ -90,7 +90,7 @@ const flowPrincipal = addKeyword(['hola','pepe'])
 
 const main = async () => {
   const adapterDB = new MockAdapter();
-  const adapterFlow = createFlow([flowVenta(chatGPT)]);
+  const adapterFlow = createFlow(/* [flowVenta(chatGPT)], */[flowPrincipal]);
 
   const adapterProvider = createProvider(MetaProvider, {
     jwtToken:
