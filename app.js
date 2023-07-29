@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 
 const {
   createBot,
@@ -6,6 +6,8 @@ const {
   createFlow,
   addKeyword,
 } = require("@bot-whatsapp/bot");
+
+const isa = require("./modules/funcionesImportantes.js");
 
 const MetaProvider = require("@bot-whatsapp/provider/meta");
 const MockAdapter = require("@bot-whatsapp/database/mock");
@@ -72,9 +74,19 @@ const flowSocial = addKeyword([
   [flowSecundario]
 );
 
-const flowPrincipal = addKeyword(['hola','pepe'])
+const flowPrincipal = addKeyword(["hola", "pepe"])
   .addAnswer(
-    "Hola, bienvenido al ChatBot del *Instituto de Innovación y Tecnología Aplicada*!"
+    "Hola, bienvenido al ChatBot del *Instituto de Innovación y Tecnología Aplicada*!",
+    null,
+    async (ctx) => {
+      isa.insertarMensaje(
+        ctx.nombre,
+        "Aqui iria el mensaje de el chatBot",
+        ctx.fecha,
+        ctx.timestamp,
+        "bot"
+      );
+    }
   )
   .addAnswer(
     [
@@ -84,20 +96,27 @@ const flowPrincipal = addKeyword(['hola','pepe'])
       "👉 *cliente* si eres un cliente de IITA 3D",
     ],
     null,
-    null,
+    async (ctx) => {
+      isa.insertarMensaje(
+        ctx.nombre,
+        "Aqui iria el mensaje de el chatBot",
+        ctx.fecha,
+        ctx.timestamp,
+        "bot"
+      );
+    },
     [flowGus, flowIsa, flowClientes, flowSocial]
   );
 
 const main = async () => {
   const adapterDB = new MockAdapter();
-  const adapterFlow = createFlow(/* [flowVenta(chatGPT)], */[flowPrincipal]);
+  const adapterFlow = createFlow([flowVenta(chatGPT)], [flowPrincipal]);
 
   const adapterProvider = createProvider(MetaProvider, {
-    jwtToken:
-      process.env.META_KEY,
-    numberId: 110066822076442,
+    jwtToken: process.env.META_KEY,
+    numberId: 100436536473788,
     verifyToken: "HAPPY",
-    version: "v16.0",
+    version: "v17.0",
   });
 
   createBot({
@@ -106,6 +125,5 @@ const main = async () => {
     database: adapterDB,
   });
 };
-
 
 main();

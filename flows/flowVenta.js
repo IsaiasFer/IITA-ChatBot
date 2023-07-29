@@ -4,8 +4,9 @@ const revision = require("../revisionDeChat.js");
 const { readFileSync } = require("fs");
 const { join } = require("path");
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+const isa = require("../modules/funcionesImportantes.js");
 
-// Modulos para la Bases de datos externas
+/* // Modulos para la Bases de datos externas
 // Import the functions you need from the SDKs you need
 const { initializeApp } = require("firebase/app");
 // TODO: Add SDKs for Firebase products that you want to use
@@ -34,19 +35,7 @@ const {
   update,
   remove,
 } = require("firebase/database");
-const db = getDatabase();
-
-// Esta funcion es para registrar el mensaje en la base de datos
-function insertarMensaje(user, mensaje, fechita, timestampi) {
-  set(ref(db, "chats/" + user + "/" + timestampi+"I"), {
-    mensaje: mensaje,
-    fecha: fechita,
-    origen: "bot",
-    enviado: "no",
-  }).catch((e) => {
-    console.log("Chango pasó un error :( , es el siguiente: ", e);
-  });
-}
+const db = getDatabase(); */
 
 // modulos para usar logs internos dea
 /* var require$$4 = require("console");
@@ -56,7 +45,7 @@ const { createWriteStream } = require$$5; */
 
 /**
  * Recuperamos el prompt "TECNICO"
-*/
+ */
 const getPrompt = async () => {
   const pathPromp = join(process.cwd(), "prompts");
   const text = readFileSync(join(pathPromp, "01_VENTA.txt"), "utf-8");
@@ -120,7 +109,14 @@ module.exports = {
         ); */
         /* console.log(revision(textFromAI.text)); */
         await flowDynamic(textFromAI.text);
-        insertarMensaje(ctx.nombre, textFromAI.text, ctx.fecha, ctx.timestamp);
+        /* insertarMensaje(ctx.nombre, textFromAI.text, ctx.fecha, ctx.timestamp); */
+        isa.insertarMensaje(
+          ctx.nombre,
+          textFromAI.text,
+          ctx.fecha,
+          ctx.timestamp,
+          "bot"
+        );
       })
 
       .addAnswer(
@@ -131,11 +127,12 @@ module.exports = {
 
           if (!ctx.body.toLowerCase().includes("ofertas")) {
             const textFromAI = await chatgptClass.handleMsgChatGPT(ctx.body);
-            insertarMensaje(
+            isa.insertarMensaje(
               ctx.nombre,
               textFromAI.text,
               ctx.fecha,
-              ctx.timestamp
+              ctx.timestamp,
+              "bot"
             );
             await fallBack(textFromAI.text);
           }

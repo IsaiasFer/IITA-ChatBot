@@ -2,7 +2,7 @@ require('dotenv').config()
 
 class ChatGPTClass {
   queue = []; 
-  optionsGPT = { model: "gpt-4" };
+  optionsGPT = { model: "gpt-3.5-turbo" };
   openai = undefined;
 
   constructor() {
@@ -16,7 +16,7 @@ class ChatGPTClass {
     const { ChatGPTAPI } = await import("chatgpt");
     this.openai = new ChatGPTAPI(
         {
-            apiKey: process.env.OPENAI_API_KEY
+          apiKey: process.env.OPENAI_API_KEY
         }
     );
   };
