@@ -3,10 +3,17 @@ node_modules/*
 !node_modules/@bot-whatsapp
 node_modules/@bot-whatsapp/*
 !node_modules/@bot-whatsapp/bot
+!node_modules/@bot-whatsapp/provider
 node_modules/@bot-whatsapp/bot/*
+node_modules/@bot-whatsapp/provider/*
 !node_modules/@bot-whatsapp/bot/lib
+!node_modules/@bot-whatsapp/provider/lib
 node_modules/@bot-whatsapp/bot/lib/*
+node_modules/@bot-whatsapp/provider/lib/*
 !node_modules/@bot-whatsapp/bot/lib/bundle.bot.cjs
+!node_modules/@bot-whatsapp/provider/lib/meta
+
+
 
 
 # Logs
