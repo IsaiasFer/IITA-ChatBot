@@ -2,7 +2,7 @@ require('dotenv').config()
 
 class ChatGPTClass {
   queue = []; 
-  optionsGPT = { model: "gpt-3.5-turbo" };
+  optionsGPT = { model: "gpt-4" };
   openai = undefined;
 
   constructor() {
@@ -29,7 +29,7 @@ class ChatGPTClass {
   handleMsgChatGPT = async (body) => {
     const interaccionChatGPT = await this.openai.sendMessage(body, {
       conversationId: !this.queue.length
-        ? undefined
+        ? undefined 
         : this.queue[this.queue.length - 1].conversationId,
       parentMessageId: !this.queue.length
         ? undefined

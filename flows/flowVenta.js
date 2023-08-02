@@ -48,7 +48,7 @@ const { createWriteStream } = require$$5; */
  */
 const getPrompt = async () => {
   const pathPromp = join(process.cwd(), "prompts");
-  const text = readFileSync(join(pathPromp, "01_VENTA.txt"), "utf-8");
+  const text = readFileSync(join(pathPromp, "prompt.txt"), "utf-8");
   return text;
 };
 
