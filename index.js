@@ -24,15 +24,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getDatabase();
+const dbRef = ref(db, "/");
 
-function obtenerMensajes() {
-  var campoDeNuevoMensaje = document.getElementById("textoParaEvaluar");
-  const dbRef = ref(db, "/");
-  let container = document.getElementById("hola");
-
+function ObtenerClientes() {
+  let clienteIncluidos = [];
+  let container = document.getElementById("chats");
   onValue(dbRef, (snapshot) => {
     var respuesta = [];
-    let contenedor = document.createElement("div");
     snapshot.forEach((childSnapshots) => {
       respuesta.push(childSnapshots.val());
     });
@@ -41,46 +39,88 @@ function obtenerMensajes() {
     var cliente = Object.entries(respuesta[0][1]);
 
     for (let i = 0; i < cliente.length; i++) {
-      var objetoMensaje = Object.values(cliente[i][1]);
+      let contenedor = document.createElement("div");
+      let nombreInterfaz = document.createElement("p");
       var nombreDeCliente = cliente[i][0];
-      contenedor.append(
-        `Los siguientes mensajes corresponden a ${nombreDeCliente}: \n`
-      );
-
-      // Recorremos todos los mensajes que hayn sido enviados, sea por usuario o ChatBot
-      for (let i = 0; i < objetoMensaje.length; i++) {
-        // guardamos el texto del mensaje en la variable mensaje
-        var mensaje = objetoMensaje[i].mensaje;
-        // Se crea elemento parrafo y le agregamos el texto del mensaje
-        let p = document.createElement("p");
-        p.append(mensaje);
-        // Selección de cada mensaje uno por uno para colocarle clases distintas en HTML según por quien haya sido enviado
-        if (objetoMensaje[i].origen == "bot") {
-          p.classList.add("botMsj");
-        } else {
-          p.classList.add("clientMsj");
-        }
-        contenedor.append(p);
-      }
-
-      let listaMensajesBot = [];
-      for (let i = 0; i < objetoMensaje.length; i++) {
-        var mensaje = objetoMensaje[i];
-
-        if (mensaje.origen == "bot") {
-          /* console.log("este es el mensaje del bot= "+mensaje.mensaje); */
-          listaMensajesBot.push(mensaje.mensaje);
-        }
-        /* console.log(listaMensajesBot[listaMensajesBot.length - 1]);
-      } */
-      }
-      if (container.firstElementChild) {
-        container.replaceChild(contenedor, container.firstElementChild);
-      } else {
+      if (!clienteIncluidos.includes(`${nombreDeCliente}`)) {
+        clienteIncluidos.push(nombreDeCliente);
+        nombreInterfaz.append(`${nombreDeCliente}`);
+        nombreInterfaz.classList.add("nombreDelCliente");
+        contenedor.append(nombreInterfaz);
+        contenedor.classList.add("chat");
+        contenedor.onclick = function () {
+          obtenerMensajes(cliente[i][0]);
+        };
         container.append(contenedor);
+      }
+      var ventanaMensajes = document.querySelector(".mensajes");
+      ventanaMensajes.scrollTop = ventanaMensajes.scrollHeight;
+    }
+  });
+}
+
+function obtenerMensajes(clienteLlamado) {
+  onValue(dbRef, (snapshot) => {
+    let container = document.getElementById("hola");
+    let contenedor = document.createElement("div");
+    var respuesta = [];
+
+    snapshot.forEach((childSnapshots) => {
+      respuesta.push(childSnapshots.val());
+    });
+
+    respuesta = Object.entries(respuesta);
+    var cliente = Object.entries(respuesta[0][1]);
+
+    for (let i = 0; i < cliente.length; i++) {
+      var nombreDeCliente = cliente[i][0];
+
+      if (clienteLlamado == nombreDeCliente) {
+        var objetoMensaje = Object.values(cliente[i][1]);
+
+        // Recorremos todos los mensajes que hayan sido enviados, sea por usuario o ChatBot
+        for (let i = 0; i < objetoMensaje.length; i++) {
+          // guardamos el texto del mensaje en la variable mensaje
+          var mensaje = objetoMensaje[i].mensaje;
+          // Se crea elemento parrafo y le agregamos el texto del mensaje
+          let p = document.createElement("p");
+          p.append(mensaje);
+          // Selección de cada mensaje uno por uno para colocarle clases distintas en HTML según por quien haya sido enviado
+          if (objetoMensaje[i].origen == "bot") {
+            p.classList.add("botMsj");
+          } else {
+            p.classList.add("clientMsj");
+          }
+          contenedor.append(p);
+        }
+
+        var ventanaMensajes = document.querySelector(".mensajes");
+        ventanaMensajes.scrollTop = ventanaMensajes.scrollHeight;
+
+        if (container.firstElementChild) {
+          container.replaceChild(contenedor, container.firstElementChild);
+        } else {
+          container.append(contenedor);
+        }
       }
     }
   });
 }
 
-window.onload = obtenerMensajes;
+function ultimoMensaje() {
+  // Funciones pra obtener mensajes del Bot
+  /*   let listaMensajesBot = [];
+    for (let i = 0; i < objetoMensaje.length; i++) {
+      var mensaje = objetoMensaje[i];
+      if (mensaje.origen == "bot") {
+        // Ultimo Mensaje del Bot
+        listaMensajesBot.push(mensaje.mensaje);
+      }
+    } */
+}
+
+function iniciar() {
+  ObtenerClientes();
+}
+
+window.onload = iniciar;

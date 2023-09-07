@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="hola"></div>
-    <div class="revision">
-        <input id="textoParaEvaluar" type="text" value="Aqui ira el Texto de Chat GPT" class="textoDeChatGPT" ></input>
-        <div class="botones">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagina de Supervisación del ChatBot de IITA</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav><h1>Supervisación ChatBot IITA</h1>
+      <figure class="iitalogocontainer">
+        <img src="https://i0.wp.com/iita.com.ar/wp-content/uploads/2021/12/cropped-LogoITTA-versiones-01-02-02.png?fit=2618%2C977&ssl=1" alt=""></nav>
+      </figure>
+    <div class="appcontainer">
+      <div id="chats">
+      </div>
+      <div class="mensajes">
+        <div id="hola"></div>
+        <div class="revision">
+          <input
+            id="textoParaEvaluar"
+            type="text"
+            value="Aqui ira el Texto de Chat GPT"
+            class="textoDeChatGPT"
+          />
+          <div class="botones">
             <button id="sendMessage">Enviar Mensaje</button>
             <button class="deleteMessage">Denegar Mensaje</button>
+            <button class="editMessage">Editar Mensaje</button>
+          </div>
+          <script src="index.js" type="module"></script>
         </div>
-        <script src="index.js" type="module"></script>
+      </div>
     </div>
     <script src="Botones.js"></script>
-</body>
+  </body>
 </html>

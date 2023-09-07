@@ -35,7 +35,6 @@ function insertarMensaje(user, mensaje, fechita, timestampi,origen) {
       mensaje: mensaje,
       fecha: fechita,
       origen: origen,
-      enviado: "no",
     }).catch((e) => {
       console.log("Chango pasó un error :( , es el siguiente: ", e);
     });
