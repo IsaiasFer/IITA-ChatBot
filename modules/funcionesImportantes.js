@@ -31,7 +31,14 @@ const {
 const db = getDatabase();
 
 function insertarMensaje(user, mensaje, fechita, timestampi,origen) {
-    set(ref(db, "chats/" + user + "/" + timestampi+"I"), {
+    //La variable "inicial" nos indica en el registro de mensajes, si el mensaje es de un cliente (C) o de parte del bot del instituto (I)
+    let inicial
+    if (origen=="cliente"){
+      inicial="C"
+    }else if(origen=="bot"){
+      inicial="I"
+    }
+    set(ref(db, "chats/" + user + "/" + timestampi+inicial), {
       mensaje: mensaje,
       fecha: fechita,
       origen: origen,
@@ -41,5 +48,5 @@ function insertarMensaje(user, mensaje, fechita, timestampi,origen) {
   }
 
   module.exports = {
-    "insertarMensaje": insertarMensaje
+    "insertarMensaje": insertarMensaje,
 }

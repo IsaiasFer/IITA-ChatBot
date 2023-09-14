@@ -20,12 +20,13 @@ const firebaseConfig = {
   appId: "1:673913631253:web:fc9492778e94da7e6f941c",
 };
 
-// Initialize Firebase
+// Iniciar Firebase
 const app = initializeApp(firebaseConfig);
 
 const db = getDatabase();
 const dbRef = ref(db, "/");
 
+//Esta función sirve para Cargar la lista de clientes que alguna vez mandaron mensajes, en la columna izquierda, y les agrega funcionalidad
 function ObtenerClientes() {
   let clienteIncluidos = [];
   let container = document.getElementById("chats");
@@ -93,10 +94,6 @@ function obtenerMensajes(clienteLlamado) {
           }
           contenedor.append(p);
         }
-
-        var ventanaMensajes = document.querySelector(".mensajes");
-        ventanaMensajes.scrollTop = ventanaMensajes.scrollHeight;
-
         if (container.firstElementChild) {
           container.replaceChild(contenedor, container.firstElementChild);
         } else {
@@ -104,6 +101,8 @@ function obtenerMensajes(clienteLlamado) {
         }
       }
     }
+    var ventanaMensajes = document.querySelector(".mensajes");
+    ventanaMensajes.scrollTop = ventanaMensajes.scrollHeight;
   });
 }
 

@@ -1,3 +1,4 @@
+//Para usar variables de entorno
 require("dotenv").config();
 
 const {
@@ -7,6 +8,7 @@ const {
   addKeyword,
 } = require("@bot-whatsapp/bot");
 
+//Par usar funciones propias
 const isa = require("./modules/funcionesImportantes.js");
 
 const MetaProvider = require("@bot-whatsapp/provider/meta");
@@ -18,6 +20,7 @@ const chatGPT = new ChatGPTClass();
 
 /* Importamos el flow que utiliza ChatGPT */
 const { flowVenta } = require("./flows/flowVenta.js");
+
 /**
  * Aqui declaramos los flujos hijos, los flujos se declaran de atras para adelante, es decir que si tienes un flujo de este tipo:
  *
@@ -110,8 +113,9 @@ const flowPrincipal = addKeyword(["hola", "pepe"])
 
 const main = async () => {
   const adapterDB = new MockAdapter();
+  //Aquí se van a incluir los Lfujos que desaeamos utilizar, entre todos los que utilizamos
   const adapterFlow = createFlow([flowVenta(chatGPT)], [flowPrincipal]);
-
+  //Configuración para el envío de mensajes
   const adapterProvider = createProvider(MetaProvider, {
     jwtToken: process.env.META_KEY,
     numberId: 100436536473788,

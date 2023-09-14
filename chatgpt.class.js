@@ -25,6 +25,7 @@ class ChatGPTClass {
    */
   init = async () => {
     const { ChatGPTAPI } = await import("chatgpt");
+    //Aquí es la configuraciónn de chatGPT, tokens máximos, temperatura, etc, por ahora solo tiene configurado el ApiKey, el prompt del sistema, y el numero de respuestas por petición
     this.openai = new ChatGPTAPI({
       apiKey: process.env.OPENAI_API_KEY,
       systemMessage: await getPrompt(),
@@ -34,7 +35,7 @@ class ChatGPTClass {
 
   /* *
    * Manejador de los mensajes
-   * sun funcion es enviar un mensaje a wahtsapp
+   * su funcion es enviar un mensaje a wahtsapp
    * @param {*} ctx
    */
 
@@ -70,8 +71,6 @@ class ChatGPTClass {
     // Este código agrega el último mensaje que mandó el chatbot a la cadena de mensajes historicos
     mensajesDelCliente.push(interaccionChatGPT);
 
-/*     console.log("esta es la lista de mensaje que se enviaron: ");
-    console.log(mensajesDelCliente); */
     return interaccionChatGPT;
   };
 }
